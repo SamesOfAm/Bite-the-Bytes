@@ -1,0 +1,62 @@
+<section class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+    <?php if ($this->headline): ?>
+        <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+    <?php endif; ?>
+
+    <?php if (($this->noImages == true) && ($this->flickr == false) && ($this->picasa == false)): echo '<p>'.$this->noImages.'</p></section>'; ?>
+    <?php else: ?>
+
+        <?php if (($this->flickr == false) && ($this->picasa == false)): ?>
+
+            <div id="<?php echo $this->galleryID; ?>">
+
+                <?php foreach ($this->pictures as $pictures):
+
+                    if (($pictures['video'] != null) && ($pictures['iframe'] == null)):
+
+                        echo '<a href="' . $pictures['video'] . '"><span class="video" ' . ($pictures['imageSRC'] ? 'data-image="'.$pictures['imageSRC'].'" src="'.$pictures['thumbnailSRC'].'"' : '') . " " . ($pictures['alt'] ? 'data-description="'.$pictures['alt'].'"' : '') . '></span></a>';
+
+                    elseif (($pictures['iframe'] != null) && ($pictures['video'] == null)):
+                        if ($pictures['iframeThumb'] == 1):
+                            echo '<a href="' . $pictures['iframe'] . '"><span class="iframe"></span></a>';
+                        else:
+                            echo '<a href="' . $pictures['iframe'] . '"><img class="iframe" src="'.$pictures['thumbnailSRC'].'" ' . '/></a>';
+                        endif;
+                    else:
+                        echo '<a href="'.$pictures['imageSRC'].'"><img src="'.$pictures['thumbnailSRC'].'" alt="'.$pictures['alt'].'" ' . ($pictures['alt'] ? 'data-description="'.$pictures['alt'].'" ' : '') . ($pictures['title'] ? 'data-title="'.$pictures['title'].'" ' : '') . ($pictures['imageUrl'] ? 'data-link="'.$pictures['imageUrl'].'" ' : '') . ($pictures['imageFullscreenSRC'] ? ' data-big="'.$pictures['imageFullscreenSRC'].'" ' : '') . ($pictures['layer'] ? 'data-layer="'.$pictures['layer'].'" ' : '') . '/></a>' . "\n";
+                    endif;
+
+                endforeach; ?>
+
+            </div>
+
+        <?php else: echo '<div id='.$this->galleryID.'></div>'; ?>
+
+        <?php endif; ?>
+</section>
+
+<script>
+// Load JS file theme
+Galleria.loadTheme('<?php echo $this->pathJS; ?>');
+
+<?php if($this->json) echo $this->json; ?>
+
+// Initialize Galleria
+Galleria.run('#<?php echo $this->galleryID; ?>' , {
+    <?php echo $this->options; ?>
+
+    <?php if ($this->flickr == true): echo ',' ?>
+
+        <?php echo $this->flickrFunction; ?>
+
+    <?php endif; ?>
+
+    <?php if ($this->picasa == true): echo ',' ?>
+
+        <?php echo $this->picasaFunction; ?>
+
+    <?php endif; ?>
+});
+</script>
+
+<?php endif; ?>

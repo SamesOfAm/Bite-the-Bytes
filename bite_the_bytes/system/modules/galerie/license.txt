@@ -1,0 +1,10 @@
+Galleria (http://galleria.io) is made by Aino (http://www.aino.se)
+
+Galleria and the plugins History, Picasa and Flickr are free to use and licensed under MIT. (https://github.com/worseisbetter/galleria/blob/master/LICENSE)
+
+-----
+
+Contao extension by Lionel Maccaud (https://github.com/lionel-m)
+License : MIT (http://lionel-m.mit-license.org/)
+
+German translation : Carolina Koehn, http://kikmedia.de
